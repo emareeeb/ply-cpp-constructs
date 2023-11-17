@@ -55,10 +55,7 @@ def p_if_statement(p):
     if_statement : IF LPAREN condition RPAREN LBRACE statements RBRACE
                  | IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
     '''
-    if len(p)==7:
-        p[0]=(p[1],p[2],p[4],p[5],p[7])
-    else :
-        p[0]=(p[1],p[2],p[4],p[5],p[7],p[8],p[9],p[11])
+    p[0]= "Valid if else statement"
 
 
 
@@ -67,15 +64,14 @@ def p_condition(p):
     condition : expression condition
         | expression
     '''
-    if len(p)==3:
-        p[0]=[p[1]]+p[2]
-    else:
-        p[0]=[p[1]]
+    
 
 def p_expression(p):
     '''
     expression : IDENTIFIER
     '''
+    p[0]= "Valid if else statement"
+
 
 
 
@@ -84,11 +80,7 @@ def p_statements(p):
     statements :  statements condition SEMICOLON
               | condition SEMICOLON
     '''
-    if len(p)==3:
-        p[0]=([p[1]],p[2])
-
-    else:
-        p[0]=([p[1]],[p[2]],p[3])
+    p[0]= "Valid if else statement"
         
 
 def p_error(p):
@@ -105,10 +97,6 @@ if (x > 0) {
 }
 '''
 
-lexer.input(input_code)
-
-for token in lexer:
-    print(token)
-
+input_code = input("Enter your syntax : ")
 result = parser.parse(input_code)
 print(result)
