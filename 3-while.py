@@ -42,7 +42,7 @@ lexer = lex.lex()
 # Parser
 def p_while_loop(p):
     '''while_loop : WHILE LPAREN condition RPAREN LBRACE statements RBRACE'''
-    p[0] = ( p[1], p[2],p[4],p[5],p[7])
+    p[0]= "Valid while statement"
 
 def p_condition(p):
     '''condition : condition IDENTIFIER
@@ -55,10 +55,7 @@ def p_condition(p):
 def p_statements(p):
     '''statements : statement statements
                   | statement'''
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = [p[1]] + p[2]
+    p[0]= "Valid if else statement"
 
 def p_statement(p):
     '''statement : while_loop
@@ -87,10 +84,10 @@ input_code = '''while (x > 0) {
     }
 }
 '''
-lexer.input(input_code)
-for i in lexer:
-    print(i)
+# lexer.input(input_code)
+# for i in lexer:
+#     print(i)
 
-
+input_code = input("Enter your syntax : ")
 result = parser.parse(input_code)
 print(result)
