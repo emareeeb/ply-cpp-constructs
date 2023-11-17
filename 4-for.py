@@ -41,23 +41,23 @@ lexer = lex.lex()
 # Parser
 def p_for_loop(p):
     '''for_loop : FOR LPAREN condition SEMICOLON condition SEMICOLON condition RPAREN LBRACE statements RBRACE'''
-    p[0] = (p[1],p[2],p[4],p[6],p[8],p[9],p[11])
+    p[0]= "Valid for statement"
 
-# def p_for_init(p):
-#     '''for_init : condition SEMICOLON
-#                 | SEMICOLON'''
-#     if len(p) == 3:
-#         p[0] = p[2]
-#     else:
-#         p[0] = p[1]
+def p_for_init(p):
+    '''for_init : condition SEMICOLON
+                | SEMICOLON'''
+    if len(p) == 3:
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
 
-# def p_for_update(p):
-#     '''for_update : condition SEMICOLON
-#                   | SEMICOLON'''
-#     if len(p) == 3:
-#         p[0] = p[2]
-#     else:
-#         p[0] = p[1]
+def p_for_update(p):
+    '''for_update : condition SEMICOLON
+                  | SEMICOLON'''
+    if len(p) == 3:
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
 
 def p_statements(p):
     '''statements : statement statements
@@ -72,6 +72,8 @@ def p_statement(p):
                  | condition SEMICOLON'''
     if len(p) == 2:
         p[0] = p[1]
+
+
     else:
         p[0] = p[1]
 
@@ -93,9 +95,9 @@ input_code = '''for (int i = 0; i < 10; ++i) {
     sfkjvskjvj;
 }
 '''
-lexer.input(input_code)
-for i in lexer:
-    print(i)
-
+# lexer.input(input_code)
+# for i in lexer:
+#     print(i)
+input_code = input("Enter your syntax : ")
 result = parser.parse(input_code)
 print(result)
