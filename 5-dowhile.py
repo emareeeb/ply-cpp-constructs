@@ -47,7 +47,7 @@ lexer = lex.lex()
 # Parser
 def p_do_while_loop(p):
     '''do_while_loop : DO LBRACE statements RBRACE WHILE LPAREN condition RPAREN SEMICOLON'''
-    p[0] = (p[1],p[2],p[4],p[5],p[6],p[8],p[9])
+    p[0]= "Valid do while statement"
 
 def p_condition(p):
     '''condition : condition IDENTIFIER
@@ -87,5 +87,6 @@ lexer.input(input_code)
 for i in lexer:
     print(i)
 
+input_code = input("Enter your syntax : ")
 result = parser.parse(input_code)
 print(result)
