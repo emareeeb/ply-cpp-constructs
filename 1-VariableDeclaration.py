@@ -1,16 +1,17 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-# Lexer
+
 tokens = (
-    'IDENTIFIER',
-    'TYPE',
-    'ASSIGNMENT',
-    'SEMICOLON',
-    'INTEGER',
-    'FLOAT',
+    'IDENTIFIER',   
+    'TYPE',         
+    'ASSIGNMENT',   
+    'SEMICOLON',    
+    'INTEGER',      
+    'FLOAT',        
 )
 
+# Regular expressions for defined token patterns.
 t_SEMICOLON = r';'
 t_ignore = r' '
 
@@ -35,9 +36,10 @@ def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
+# Creating the lexer
 lexer = lex.lex()
 
-# Parser
+# Parser rules
 def p_variable_declaration(p):
     '''variable_declaration : TYPE IDENTIFIER ASSIGNMENT expression SEMICOLON'''
     p[0] = "Valid Variable Declaration"
@@ -49,8 +51,12 @@ def p_expression(p):
 def p_error(p):
     print(f"Syntax error at '{p.value}'")
 
+# Creating the parser
 parser = yacc.yacc()
 
+# Taking input from the user
 input_code = input("Enter your syntax : ")
+
+# Parsing the input and printing the result
 result = parser.parse(input_code)
 print(result)
