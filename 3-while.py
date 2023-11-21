@@ -1,3 +1,4 @@
+# Importing the necessary modules from the PLY (Python Lex-Yacc) library
 import ply.lex as lex
 import ply.yacc as yacc
 
@@ -12,9 +13,10 @@ tokens = (
     'SEMICOLON',
 )
 
+# Regular expressions for token patterns
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-# t_WHILE = r'while'
+# t_WHILE = r'while'  
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_SEMICOLON = r';'
@@ -37,17 +39,18 @@ def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
+# Creating the lexer
 lexer = lex.lex()
 
-# Parser
+# Parser rules
 def p_while_loop(p):
     '''while_loop : WHILE LPAREN condition RPAREN LBRACE statements RBRACE'''
-    p[0]= "Valid while statement"
+    p[0] = "Valid while statement"
 
 def p_condition(p):
     '''condition : condition IDENTIFIER
         | IDENTIFIER'''
-    if len(p)==3:
+    if len(p) == 3:
         p[0] = p[2]
     else:
         p[0] = p[1]
@@ -55,38 +58,30 @@ def p_condition(p):
 def p_statements(p):
     '''statements : statement statements
                   | statement'''
-    p[0]= "Valid if else statement"
+    p[0] = "Valid if-else statement"
 
 def p_statement(p):
     '''statement : while_loop
                  | condition SEMICOLON'''
     if len(p) == 2:
         p[0] = p[1]
-    else :
+    else:
         p[0] = p[2]
-
-# def p_expression(p):
-#     '''expression : IDENTIFIER'''
-#     p[0] = ('identifier', p[1])
 
 def p_error(p):
     print(f"Syntax error at '{p.value}'")
 
+# Creating the parser
 parser = yacc.yacc()
 
-
-# Test the parser
+# Taking input from the user
 input_code = '''while (x > 0) {
     x = x - 1;
-    while(x==0)
-    {
-        x=5;
+    while (x == 0) {
+        x = 5;
     }
 }
 '''
-# lexer.input(input_code)
-# for i in lexer:
-#     print(i)
 
 input_code = input("Enter your syntax : ")
 result = parser.parse(input_code)
